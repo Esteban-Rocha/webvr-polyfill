@@ -1,7 +1,7 @@
 {
   "name": "webvr-polyfill",
-  "version": "0.9.3",
-  "homepage": "https://github.com/borismus/webvr-polyfill",
+  "version": "0.9.23",
+  "homepage": "https://github.com/googlevr/webvr-polyfill",
   "authors": [
     "Boris Smus <boris@smus.com>",
     "Brandon Jones <tojiro@gmail.com>"
