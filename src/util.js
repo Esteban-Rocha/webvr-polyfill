@@ -220,7 +220,7 @@ Util.safariCssSizeWorkaround = function(canvas) {
 };
 
 Util.isDebug = function() {
-  return Util.getQueryParameter('debug');
+  return Util.getQueryParameter('webvr-debug');
 };
 
 Util.getQueryParameter = function(name) {
