@@ -13,8 +13,6 @@
  * limitations under the License.
  */
 
-var objectAssign = require('object-assign');
-
 var Util = window.Util || {};
 
 Util.MIN_TIMESTEP = 0.001;
@@ -36,6 +34,15 @@ Util.isIOS = (function() {
   var isIOS = /iPad|iPhone|iPod/.test(navigator.platform);
   return function() {
     return isIOS;
+  };
+})();
+
+Util.isWebViewAndroid = (function() {
+  var isWebViewAndroid = navigator.userAgent.indexOf('Version') !== -1 &&
+      navigator.userAgent.indexOf('Android') !== -1 &&
+      navigator.userAgent.indexOf('Chrome') !== -1;
+  return function() {
+    return isWebViewAndroid;
   };
 })();
 
@@ -83,6 +90,9 @@ Util.getScreenHeight = function() {
 };
 
 Util.requestFullscreen = function(element) {
+  if (Util.isWebViewAndroid()) {
+      return false;
+  }
   if (element.requestFullscreen) {
     element.requestFullscreen();
   } else if (element.webkitRequestFullscreen) {
@@ -193,7 +203,15 @@ Util.isMobile = function() {
   return check;
 };
 
-Util.extend = objectAssign;
+Util.extend = function(dest, src) {
+  for (var key in src) {
+    if (src.hasOwnProperty(key)) {
+      dest[key] = src[key];
+    }
+  }
+
+  return dest;
+}
 
 Util.safariCssSizeWorkaround = function(canvas) {
   // TODO(smus): Remove this workaround when Safari for iOS is fixed.

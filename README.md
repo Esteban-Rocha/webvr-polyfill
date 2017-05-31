@@ -1,5 +1,9 @@
 # WebVR Polyfill
 
+[![Build Status](http://img.shields.io/travis/googlevr/webvr-polyfill.svg?style=flat-square)](https://travis-ci.org/googlevr/webvr-polyfill)
+[![Build Status](http://img.shields.io/npm/v/webvr-polyfill.svg?style=flat-square)](https://www.npmjs.org/package/webvr-polyfill)
+
+
 A JavaScript implementation of the [WebVR spec][spec]. This project lets you use
 WebVR today, without requiring a [special][moz] [browser][cr] build. It also
 lets you view the same content without requiring a virtual reality viewer.
@@ -109,6 +113,12 @@ cd webvr-polyfill
 npm install
 ```
 
+### Development Commands
+
+* `npm install`: installs the dependencies.
+* `npm start`: auto-builds the module whenever any source changes and serves the example
+content on `http://0.0.0.0:8080/`.
+* `npm run build`: builds the module.
 
 ## License
 
