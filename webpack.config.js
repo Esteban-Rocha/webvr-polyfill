@@ -3,8 +3,8 @@ const path = require('path');
 
 const webpack = require('webpack');
 
-const license = fs.readFileSync(path.join(__dirname, 'LICENSE.md'), 'utf8');
-const banner = `@license\n${license}`;
+const licensePath = path.join(__dirname, 'build', 'license.js');
+const license = fs.readFileSync(licensePath, 'utf8');
 
 module.exports = {
   entry: {
@@ -17,7 +17,7 @@ module.exports = {
     sourceMapFilename: '[name].js.map',
   },
   resolve: {
-    extensions: ['.js', '.js', '.json'],
+    extensions: ['.js', '.json'],
   },
   devtool: 'source-map',
   devServer: {
@@ -27,11 +27,12 @@ module.exports = {
       path.resolve(__dirname, 'examples'),
     ],
     host: '0.0.0.0',
+    disableHostCheck: true
   },
   plugins: [
     new webpack.optimize.UglifyJsPlugin({
       include: /\.min\.js$/,
     }),
-    new webpack.BannerPlugin({ banner: banner }),
+    new webpack.BannerPlugin({ banner: license, raw: true }),
   ],
 };

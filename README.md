@@ -91,7 +91,21 @@ WebVRConfig = {
   // Dirty bindings include: gl.FRAMEBUFFER_BINDING, gl.CURRENT_PROGRAM,
   // gl.ARRAY_BUFFER_BINDING, gl.ELEMENT_ARRAY_BUFFER_BINDING,
   // and gl.TEXTURE_BINDING_2D for texture unit 0.
-  DIRTY_SUBMIT_FRAME_BINDINGS: true // Default: false.
+  DIRTY_SUBMIT_FRAME_BINDINGS: true, // Default: false.
+
+  // When set to true, this will cause a polyfilled VRDisplay to always be
+  // appended to the list returned by navigator.getVRDisplays(), even if that
+  // list includes a native VRDisplay.
+  ALWAYS_APPEND_POLYFILL_DISPLAY: false,
+
+  // There are versions of Chrome (M58-M60?) where the native WebVR API exists,
+  // and instead of returning 0 VR displays when none are detected,
+  // `navigator.getVRDisplays()`'s promise never resolves. This results
+  // in the polyfill hanging and not being able to provide fallback
+  // displays, so set a timeout in milliseconds to stop waiting for a response
+  // and just use polyfilled displays.
+  // https://bugs.chromium.org/p/chromium/issues/detail?id=727969
+  GET_VR_DISPLAYS_TIMEOUT: 1000,
 }
 ```
 
@@ -100,6 +114,11 @@ WebVRConfig = {
 Performance is critical for VR. If you find your application is too sluggish,
 consider tweaking some of the above parameters. In particular, keeping
 `BUFFER_SCALE` at 0.5 (the default) will likely help a lot.
+
+## WebVR 1.1 Shim
+
+The polyfill exposes a helper method `WebVRPolyfill.InstallWebVRSpecShim` which
+installs a shim that updates a WebVR 1.0 spec implementation to WebVR 1.1.
 
 ## Development
 
@@ -123,7 +142,7 @@ content on `http://0.0.0.0:8080/`.
 ## License
 
 This program is free software for both commercial and non-commercial use,
-distributed under the [Apache 2.0 License](COPYING).
+distributed under the [Apache 2.0 License](LICENSE).
 
 
 ## Thanks
